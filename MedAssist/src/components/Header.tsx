@@ -7,10 +7,10 @@ const Header = () => {
         <img src={logo} alt="logo" className="w-28 object-contain" />
         <button
           type="button"
-          onClick={() => window.open("https://github.com/taichan03")}
+          onClick={() => window.open("https://codeforphilly.org/")}
           className="black_btn"
         >
-          GitHub
+          Code For Philly
         </button>
       </nav>
 

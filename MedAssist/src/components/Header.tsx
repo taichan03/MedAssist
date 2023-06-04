@@ -1,4 +1,4 @@
-import { logo } from "../assets";
+import logo from "../assets/logo.svg";
 
 const Header = () => {
   return (
@@ -22,12 +22,7 @@ const Header = () => {
       <h2 className="desc">
         MedAssist is an innovative AI-powered web application designed to assist
         psychiatrists in selecting the most appropriate bipolar medication for
-        first-time patients. It is open-source and free to use. The app
-        streamlines the medication decision-making process by leveraging
-        advanced algorithms and comprehensive data analysis. It considers
-        medication options and performs risk-benefit analyses based on the
-        patient's diagnosis, symptom severity, treatment goals, and individual
-        characteristics.
+        first-time patients. It is open-source and free to use.
       </h2>
     </header>
   );

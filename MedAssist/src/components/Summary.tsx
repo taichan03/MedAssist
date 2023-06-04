@@ -35,7 +35,7 @@ const Summary = () => {
           </div>
         )}
         <form
-          className="relative flex justify-center items-center"
+          className="relative flex flex-col items-center"
           onSubmit={handleSubmit}
         >
           <img
@@ -53,12 +53,14 @@ const Summary = () => {
             required
             className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
           />
-          <button
-            type="submit"
-            className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700 "
-          >
-            <p>↵</p>
-          </button>
+          <div className="flex justify-center mt-2">
+            <button
+              type="submit"
+              className="black_btn peer-focus:border-gray-700 peer-focus:text-gray-700 "
+            >
+              <p>Submit</p>
+            </button>
+          </div>
         </form>
       </div>
     </section>

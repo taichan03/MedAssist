@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import linkIcon from "../assets/link.svg";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
 
@@ -10,7 +10,7 @@ const Summary = () => {
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
 

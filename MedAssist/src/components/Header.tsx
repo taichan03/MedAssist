@@ -10,7 +10,7 @@ const Header = () => {
           onClick={() => window.open("https://codeforphilly.org/")}
           className="black_btn"
         >
-          Tai
+          Code for Philly
         </button>
       </nav>
 

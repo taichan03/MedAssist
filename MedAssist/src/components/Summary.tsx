@@ -37,6 +37,7 @@ const Summary = () => {
             alt="link-icon"
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
+          <h3>Patient ID</h3>
           <input
             type="ID"
             placeholder="Patient ID:"
@@ -47,9 +48,48 @@ const Summary = () => {
             required
             className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
           />
+          <div>
+          <h3>Diagnosis</h3>
+          <label><input
+            type="radio"
+            value={patientInfo.Diagnosis}
+            onChange={(e) =>
+              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
+            }
+            required
+            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+          />Bipolar I</label>
+          <label>
+            <input
+            type="radio"
+            value={patientInfo.Diagnosis}
+            onChange={(e) =>
+              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
+            }
+            required
+            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+          />Bipolar II</label>
+          <label><input
+            type="radio"
+            value={patientInfo.Diagnosis}
+            onChange={(e) =>
+              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
+            }
+            required
+            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+          />Cyclothymic</label>
+          <label><input
+            type="radio"
+            value={patientInfo.Diagnosis}
+            onChange={(e) =>
+              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
+            }
+            required
+            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+          />Other</label>
           <input
             type="Text"
-            placeholder="Patient Diagnosis:"
+            placeholder=""
             value={patientInfo.Diagnosis}
             onChange={(e) =>
               setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
@@ -57,6 +97,25 @@ const Summary = () => {
             required
             className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
           />
+          </div>
+          <h3>Symptom Severity</h3>
+          <h3>Treatment Goals</h3>
+          <h3>Age</h3>
+          <input
+            type="number"
+            placeholder="35"
+            value={patientInfo.Age}
+            onChange={(e) =>
+              setPatientInfo({ ...patientInfo, Age: e.target.value })
+            }
+            required
+            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+          />
+          <h3>Medical History</h3>
+          <h3>Current Medications</h3>
+          <h3>Allergies</h3>
+          <h3>Additional Considerations</h3>
+          
           {/* Display ID and Description */}
           {patientInfo.ID && (
             <div>

@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
 import PatientIDInput from "./form_components/PatientID.tsx";
 
@@ -10,9 +10,20 @@ const Summary = () => {
     Description: "",
     Age: 18,
   });
+  const[allPatientInfo, setAllPatientInfo] = useState([]);
+
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
 
+  useEffect(() => {
+    const patienInfoFromLocalStorage = JSON.parse(
+      localStorage.getItem('patientInfo')
+    )
+    if(patienInfoFromLocalStorage){
+      setAllPatientInfo(patienInfoFromLocalStorage)
+    }
+
+  }, [])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,12 +32,15 @@ const Summary = () => {
     if (data?.description) {
       const newDescription = { ...patientInfo, Description: data.description };
 
+      const updatedAllPatientInfo = [newDescription, ...allPatientInfo]
       setPatientInfo(newDescription);
 
-      console.log("newDescription");
+      console.log("Logged new description");
+      setAllPatientInfo(updatedAllPatientInfo)
+
     }
     else{
-      console.log("noDescription");
+      console.log("No description came back");
     }
   };
 

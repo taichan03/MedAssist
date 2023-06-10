@@ -1,5 +1,6 @@
-import {useState, FormEvent, ChangeEvent} from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
+import PatientIDInput from "./form_components/PatientID.tsx";
 
 const Summary = () => {
   const [patientInfo, setPatientInfo] = useState({
@@ -7,10 +8,11 @@ const Summary = () => {
     Diagnosis: "",
     OtherDiagnosis: "",
     Description: "",
-    Age: 0,
+    Age: 18,
   });
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,17 +56,7 @@ const Summary = () => {
             alt="link-icon"
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
-          <h3>Patient ID</h3>
-          <input
-            type="ID"
-            placeholder="Patient ID:"
-            value={patientInfo.ID}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, ID: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />
+          <PatientIDInput patientInfo={patientInfo} setPatientInfo={setPatientInfo}></PatientIDInput>
           <div>
             <br />
             <select
@@ -97,7 +89,6 @@ const Summary = () => {
           <h3>Age</h3>
           <input
             type="number"
-            placeholder="35"
             value={patientInfo.Age}
             onChange={(e) =>
               setPatientInfo({ ...patientInfo, Age: Number(e.target.value) })

@@ -48,7 +48,7 @@ const Summary = () => {
       {/* {search} */}
       <div className="flex flex-col w-full gap-2">
         <form
-          className="relative flex flex-col items-center"
+          className=""
           onSubmit={handleSubmit}
         >
           {/* <img
@@ -57,8 +57,11 @@ const Summary = () => {
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
           <PatientIDInput patientInfo={patientInfo} setPatientInfo={setPatientInfo}></PatientIDInput>
+          <br />
           <div>
-            <br />
+          <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
+          Diagnosis:
+          </label>
             <select
                 value={patientInfo.Diagnosis}
                 onChange={handleDiagnosisChange}
@@ -84,31 +87,24 @@ const Summary = () => {
                 />
             )}
           </div>
-          <h3>Symptom Severity</h3>
-          <h3>Treatment Goals</h3>
-          <h3>Age</h3>
+          <br />
+          <div className="items-center">
+          <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
+            Age:
+          </label>
           <input
+            id="ageInput"
             type="number"
             value={patientInfo.Age}
             onChange={(e) =>
               setPatientInfo({ ...patientInfo, Age: Number(e.target.value) })
             }
             required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+            className="url_input peer"
           />
-          <h3>Medical History</h3>
-          <h3>Current Medications</h3>
-          <h3>Allergies</h3>
-          <h3>Additional Considerations</h3>
+          </div>
           
-          {/* Display ID and Description */}
-          {patientInfo.ID && (
-            <div>
-              <p>ID: {patientInfo.ID}</p>
-              <p>Diagnosis: {patientInfo.Diagnosis}</p>
-              <p>Description: {patientInfo.Description}</p>
-            </div>
-          )}
+         
           <div className="flex justify-center mt-2">
             <button
               type="submit"
@@ -118,6 +114,16 @@ const Summary = () => {
             </button>
           </div>
         </form>
+        <br />
+
+         {/* Display ID and Description */}
+         {patientInfo.ID && (
+            <div>
+              <p>ID: {patientInfo.ID}</p>
+              <p>Diagnosis: {patientInfo.Diagnosis}</p>
+              <p>Description: {patientInfo.Description}</p>
+            </div>
+          )}
       </div>
     </section>
   );

@@ -21,13 +21,14 @@ function PatientIDInput({ patientInfo, setPatientInfo }: PatientIDInputProps) {
     }, []);
 
     return (
-        <div>
+        <div className="">
+            <label htmlFor="name"  className="block font-latoBold text-sm pb-2">Patient ID: </label>
             <input
                 type="text"
                 placeholder="Patient ID:"
                 value={patientInfo.ID}
                 readOnly
-                className="url_input peer"
+                className="url_input peer w-1/2"
             />
         </div>
     );

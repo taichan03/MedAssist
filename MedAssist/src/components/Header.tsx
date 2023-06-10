@@ -15,9 +15,9 @@ const Header = () => {
       </nav>
 
       <h1 className="head_text">
-        MedAssist: AI-powered Bipolar Medication{" "}
+        AI-powered Bipolar Medication:{" "}
         <br className="max-md:hidden" />
-        <span className="orange_gradient">Code for Philly</span>
+        <span className="orange_gradient">MedAssist</span>
       </h1>
       <h2 className="desc">
         MedAssist is an innovative AI-powered web application designed to assist

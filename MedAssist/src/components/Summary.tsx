@@ -1,11 +1,11 @@
-import { useState, FormEvent } from "react";
-import linkIcon from "../assets/link.svg";
+import {useState, FormEvent, ChangeEvent} from "react";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
 
 const Summary = () => {
   const [patientInfo, setPatientInfo] = useState({
     ID: "",
     Diagnosis: "",
+    OtherDiagnosis: "",
     Description: "",
     Age: 0,
   });
@@ -22,6 +22,22 @@ const Summary = () => {
       setPatientInfo(newDescription);
 
       console.log(newDescription);
+    }
+  };
+
+  const handleDiagnosisChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    if (selectedValue === 'Other') {
+      setPatientInfo({
+        ...patientInfo,
+        Diagnosis: selectedValue,
+      });
+    } else {
+      setPatientInfo({
+        ...patientInfo,
+        Diagnosis: selectedValue,
+        OtherDiagnosis: '', // Reset the OtherDiagnosis value
+      });
     }
   };
 
@@ -50,54 +66,31 @@ const Summary = () => {
             className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
           />
           <div>
-          <h3>Diagnosis</h3>
-          <label><input
-            type="radio"
-            value={patientInfo.Diagnosis}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />Bipolar I</label>
-          <label>
-            <input
-            type="radio"
-            value={patientInfo.Diagnosis}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />Bipolar II</label>
-          <label><input
-            type="radio"
-            value={patientInfo.Diagnosis}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />Cyclothymic</label>
-          <label><input
-            type="radio"
-            value={patientInfo.Diagnosis}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />Other</label>
-          <input
-            type="Text"
-            placeholder=""
-            value={patientInfo.Diagnosis}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />
+            <br />
+            <select
+                value={patientInfo.Diagnosis}
+                onChange={handleDiagnosisChange}
+                required
+                className="url_input peer"
+            >
+              <option value="">Select a diagnosis</option>
+              <option value="Bipolar I">Bipolar I</option>
+              <option value="Bipolar II">Bipolar II</option>
+              <option value="Cyclothymic">Cyclothymic</option>
+              <option value="Other">Other</option>
+            </select>
+            {patientInfo.Diagnosis === 'Other' && (
+                <input
+                    type="text"
+                    placeholder="Please specify"
+                    value={patientInfo.OtherDiagnosis}
+                    onChange={(e) =>
+                        setPatientInfo({ ...patientInfo, OtherDiagnosis: e.target.value })
+                    }
+                    required
+                    className="url_input peer"
+                />
+            )}
           </div>
           <h3>Symptom Severity</h3>
           <h3>Treatment Goals</h3>

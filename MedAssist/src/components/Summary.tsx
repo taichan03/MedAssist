@@ -18,12 +18,15 @@ const Summary = () => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
 
-    if (data?.Description) {
-      const newDescription = { ...patientInfo, Description: data.Description };
+    if (data?.description) {
+      const newDescription = { ...patientInfo, Description: data.description };
 
       setPatientInfo(newDescription);
 
-      console.log(newDescription);
+      console.log("newDescription");
+    }
+    else{
+      console.log("noDescription");
     }
   };
 

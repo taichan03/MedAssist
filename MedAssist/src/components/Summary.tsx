@@ -57,8 +57,7 @@ const Summary = () => {
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
           <PatientIDInput patientInfo={patientInfo} setPatientInfo={setPatientInfo}></PatientIDInput>
-          <br />
-          <div>
+          <div className=" mt-5">
           <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
           Diagnosis:
           </label>
@@ -87,8 +86,7 @@ const Summary = () => {
                 />
             )}
           </div>
-          <br />
-          <div className="items-center">
+          <div className="items-center mt-5">
           <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
             Age:
           </label>
@@ -105,7 +103,7 @@ const Summary = () => {
           </div>
           
          
-          <div className="flex justify-center mt-2">
+          <div className="flex justify-center mt-5">
             <button
               type="submit"
               className="black_btn peer-focus:border-gray-700 peer-focus:text-gray-700 "

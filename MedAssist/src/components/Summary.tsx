@@ -6,7 +6,8 @@ const Summary = () => {
   const [patientInfo, setPatientInfo] = useState({
     ID: "",
     Diagnosis: "",
-    description: "",
+    Description: "",
+    Age: 0,
   });
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
@@ -15,8 +16,8 @@ const Summary = () => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
 
-    if (data?.description) {
-      const newDescription = { ...patientInfo, description: data.description };
+    if (data?.Description) {
+      const newDescription = { ...patientInfo, Description: data.Description };
 
       setPatientInfo(newDescription);
 
@@ -106,7 +107,7 @@ const Summary = () => {
             placeholder="35"
             value={patientInfo.Age}
             onChange={(e) =>
-              setPatientInfo({ ...patientInfo, Age: e.target.value })
+              setPatientInfo({ ...patientInfo, Age: Number(e.target.value) })
             }
             required
             className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
@@ -121,7 +122,7 @@ const Summary = () => {
             <div>
               <p>ID: {patientInfo.ID}</p>
               <p>Diagnosis: {patientInfo.Diagnosis}</p>
-              <p>Description: {patientInfo.description}</p>
+              <p>Description: {patientInfo.Description}</p>
             </div>
           )}
           <div className="flex justify-center mt-2">

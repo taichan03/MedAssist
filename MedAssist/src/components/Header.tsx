@@ -1,4 +1,4 @@
-import logo from "../assets/logo.svg";
+import logo from "../assets/balancer.png";
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
 
       <h1 className="head_text">
         {/* AI-powered Bipolar Medication: <br className="max-md:hidden" /> */}
-        <span className="orange_gradient">MedAssist</span>
+        <span className="orange_gradient">Balancer</span>
       </h1>
       <h2 className="desc">
         MedAssist is an innovative AI-powered web application designed to assist

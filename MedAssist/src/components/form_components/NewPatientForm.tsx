@@ -1,21 +1,9 @@
-import { useState, FormEvent, ChangeEvent, useEffect } from "react";
-import { useLazyGetMedicationInfoQuery } from "../../services/medicationsApi";
+import {  FormEvent, ChangeEvent, useEffect } from "react";
 import PatientIDInput from "./PatientID.tsx";
-import { copy, linkIcon, loader, tick } from "../../assets";
+import { loader } from "../../assets";
 
 
-const NewPatientForm = () => {
-    const [patientInfo, setPatientInfo] = useState({
-        ID: "",
-        Diagnosis: "",
-        OtherDiagnosis: "",
-        Description: "",
-        Age: 18,
-    });
-    const [allPatientInfo, setAllPatientInfo] = useState([]);
-
-    const [getMedicationInfo, { error, isFetching }] =
-        useLazyGetMedicationInfoQuery();
+const NewPatientForm = ({ patientInfo, setPatientInfo, allPatientInfo, setAllPatientInfo, getMedicationInfo }) => {
 
     useEffect(() => {
         const patientInfoFromLocalStorage = JSON.parse(
@@ -70,18 +58,18 @@ const NewPatientForm = () => {
             <div className="flex flex-col w-full gap-2">
                 {/* Display ID and Description */}
                 <div className="my-1 max-w-full flex justify-center items-center">
-                    {isFetching ? (
+                    {getMedicationInfo.isFetching ? (
                         <img
                             src={loader}
                             alt="loader"
                             className="w-20 h-20 object-contain"
                         />
-                    ) : error ? (
+                    ) : getMedicationInfo.error ? (
                         <p className="font-inter font-bold text-black text-center">
                             Well, that wasn't supposed to happen...
                             <br />
                             <span className="font-satoshi font-normal text-gray-700">
-                {error?.data?.error}
+                {getMedicationInfo.error?.data?.error}
               </span>
                         </p>
                     ) : (
@@ -127,27 +115,8 @@ const NewPatientForm = () => {
                     )}
                 </div>
 
-                <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
-                    {allPatientInfo.reverse().map((item, index) => (
-                        <div
-                            key={`link-${index}`}
-                            onClick={() => setPatientInfo(item)}
-                            className="link_card"
-                        >
-                            <div className="copy_btn">
-                                <img
-                                    src={copy}
-                                    alt="copy_icon"
-                                    className="w-[40%] h-[40%] object-contain"
-                                />
-                            </div>
-                            <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
-                                {item.ID}
-                            </p>
-                        </div>
-                    ))}
-                </div>
                 <br />
+
                 <div>
                     {" "}
                     <h2 className="font-satoshi font-bold text-gray-600 text-xl">
@@ -164,7 +133,7 @@ const NewPatientForm = () => {
                     <PatientIDInput
                         patientInfo={patientInfo}
                         setPatientInfo={setPatientInfo}
-                    ></PatientIDInput>
+                    />
                     <div className=" mt-5">
                         <label
                             htmlFor="ageInput"

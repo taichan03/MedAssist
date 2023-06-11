@@ -67,6 +67,84 @@ const Summary = () => {
     <section className="mt-16 w-full max-w-xl">
       {/* {search} */}
       <div className="flex flex-col w-full gap-2">
+        {/* Display ID and Description */}
+        <div className="my-10 max-w-full flex justify-center items-center">
+          {isFetching ? (
+            <img
+              src={loader}
+              alt="loader"
+              className="w-20 h-20 object-contain"
+            />
+          ) : error ? (
+            <p className="font-inter font-bold text-black text-center">
+              Well, that wasn't supposed to happen...
+              <br />
+              <span className="font-satoshi font-normal text-gray-700">
+                {error?.data?.error}
+              </span>
+            </p>
+          ) : (
+            patientInfo.Description && (
+              <div className="flex flex-col gap-3">
+                <h2 className="font-satoshi font-bold text-gray-600 text-xl">
+                  Article <span className="blue_gradient">Summary</span>
+                </h2>
+                <div className="summary_box">
+                  <p className="font-inter font-medium text-sm text-gray-700">
+                    <label
+                      htmlFor="ageInput"
+                      className="block font-latoBold text-sm pb-2"
+                    >
+                      {" "}
+                      <b>Patient ID: </b> {patientInfo.ID}
+                    </label>
+                    <label
+                      htmlFor="ageInput"
+                      className="block font-latoBold text-sm pb-2"
+                    >
+                      <b>Diagnosis: </b> {patientInfo.Diagnosis}{" "}
+                      {patientInfo.OtherDiagnosis}
+                    </label>
+                    <label
+                      htmlFor="ageInput"
+                      className="block font-latoBold text-sm pb-2"
+                    >
+                      {" "}
+                      <b>Age: </b>
+                      {patientInfo.Age}
+                    </label>
+                    <label
+                      htmlFor="ageInput"
+                      className="block font-latoBold text-sm pb-2"
+                    >
+                      <b>{patientInfo.Description}</b>
+                    </label>
+                  </p>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+        <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
+          {allPatientInfo.reverse().map((item, index) => (
+            <div
+              key={`link-${index}`}
+              onClick={() => setPatientInfo(item)}
+              className="link_card"
+            >
+              <div className="copy_btn">
+                <img
+                  src={copy}
+                  alt="copy_icon"
+                  className="w-[40%] h-[40%] object-contain"
+                />
+              </div>
+              <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
+                {item.ID}
+              </p>
+            </div>
+          ))}
+        </div>
         <form className="" onSubmit={handleSubmit}>
           {/* <img
             src={linkIcon}
@@ -141,81 +219,6 @@ const Summary = () => {
           </div>
         </form>
         <br />
-        <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
-          {allPatientInfo.reverse().map((item, index) => (
-            <div
-              key={`link-${index}`}
-              onClick={() => setPatientInfo(item)}
-              className="link_card"
-            >
-              <div className="copy_btn">
-                <img
-                  src={copy}
-                  alt="copy_icon"
-                  className="w-[40%] h-[40%] object-contain"
-                />
-              </div>
-              <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
-                {item.ID}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <br />
-      {/* Display ID and Description */}
-      <div className="my-10 max-w-full flex justify-center items-center">
-        {isFetching ? (
-          <img src={loader} alt="loader" className="w-20 h-20 object-contain" />
-        ) : error ? (
-          <p className="font-inter font-bold text-black text-center">
-            Well, that wasn't supposed to happen...
-            <br />
-            <span className="font-satoshi font-normal text-gray-700">
-              {error?.data?.error}
-            </span>
-          </p>
-        ) : (
-          patientInfo.Description && (
-            <div className="flex flex-col gap-3">
-              <h2 className="font-satoshi font-bold text-gray-600 text-xl">
-                Article <span className="blue_gradient">Summary</span>
-              </h2>
-              <div className="summary_box">
-                <p className="font-inter font-medium text-sm text-gray-700">
-                  <label
-                    htmlFor="ageInput"
-                    className="block font-latoBold text-sm pb-2"
-                  >
-                    {" "}
-                    <b>Patient ID: </b> {patientInfo.ID}
-                  </label>
-                  <label
-                    htmlFor="ageInput"
-                    className="block font-latoBold text-sm pb-2"
-                  >
-                    <b>Diagnosis: </b> {patientInfo.Diagnosis}{" "}
-                    {patientInfo.OtherDiagnosis}
-                  </label>
-                  <label
-                    htmlFor="ageInput"
-                    className="block font-latoBold text-sm pb-2"
-                  >
-                    {" "}
-                    <b>Age: </b>
-                    {patientInfo.Age}
-                  </label>
-                  <label
-                    htmlFor="ageInput"
-                    className="block font-latoBold text-sm pb-2"
-                  >
-                    <b>{patientInfo.Description}</b>
-                  </label>
-                </p>
-              </div>
-            </div>
-          )
-        )}
       </div>
 
       {/* {patientInfo.ID && (

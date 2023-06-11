@@ -68,7 +68,7 @@ const Summary = () => {
       {/* {search} */}
       <div className="flex flex-col w-full gap-2">
         {/* Display ID and Description */}
-        <div className="my-10 max-w-full flex justify-center items-center">
+        <div className="my-1 max-w-full flex justify-center items-center">
           {isFetching ? (
             <img
               src={loader}

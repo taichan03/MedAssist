@@ -1,4 +1,20 @@
-const PatientHistory = ({ allPatientInfo, setPatientInfo, copy }) => {
+import React from "react";
+
+interface PatientInfo {
+    ID: string;
+    Diagnosis: string;
+    OtherDiagnosis: string;
+    Description: string;
+    Age: number;
+}
+
+interface PatientHistoryData {
+    allPatientInfo: PatientInfo[];
+    setPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo>>
+    copy: string
+}
+
+const PatientHistory = ({ allPatientInfo, setPatientInfo, copy }: PatientHistoryData) => {
   return (
     <div className="flex flex-col gap-2 max-h-100 overflow-y-auto mb-12">
       <br />

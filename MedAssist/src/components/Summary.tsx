@@ -188,7 +188,7 @@ const Summary = () => {
                     className="block font-latoBold text-sm pb-2"
                   >
                     {" "}
-                    <b>Patient ID: </b> {patientInfo.Diagnosis} {patientInfo.ID}
+                    <b>Patient ID: </b> {patientInfo.ID}
                   </label>
                   <label
                     htmlFor="ageInput"

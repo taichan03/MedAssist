@@ -9,7 +9,7 @@ export const medicationsApi = createApi({
     getMedicationInfo: builder.query({
       // encodeURIComponent() function encodes special characters that may be present in the parameter values
       // If we do not properly encode these characters, they can be misinterpreted by the server and cause errors or unexpected behavior. Thus that RTK bug
-      query: (params) => `/medications/index.json`,
+      query: () => `/medications/index.json`,
     }),
   }),
 });

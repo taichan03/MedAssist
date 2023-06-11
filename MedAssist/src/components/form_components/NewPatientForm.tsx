@@ -1,5 +1,5 @@
 import React, { FormEvent, ChangeEvent, useEffect } from "react";
-import PatientIDInput from "./PatientID.tsx";
+// import PatientIDInput from "./PatientID.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { loader } from "../../assets";

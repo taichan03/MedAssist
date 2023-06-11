@@ -1,34 +1,52 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
+import PatientIDInput from "./form_components/PatientID.tsx";
 
 const Summary = () => {
   const [patientInfo, setPatientInfo] = useState({
     ID: "",
     Diagnosis: "",
+    OtherDiagnosis: "",
     Description: "",
-    Age: 0,
+    Age: 18,
   });
+  const[allPatientInfo, setAllPatientInfo] = useState([]);
+
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
+
+  useEffect(() => {
+    const patienInfoFromLocalStorage = JSON.parse(
+      localStorage.getItem('patientInfo')
+    )
+    if(patienInfoFromLocalStorage){
+      setAllPatientInfo(patienInfoFromLocalStorage)
+    }
+
+  }, [])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
 
     if (data?.description) {
-      const newDescription = { ...patientInfo, description: data.description };
+      const newDescription = { ...patientInfo, Description: data.description };
 
+      const updatedAllPatientInfo = [newDescription, ...allPatientInfo]
       setPatientInfo(newDescription);
 
-      console.log("newDescription");
-    } else {
-      console.log("noDescription");
+      console.log("Logged new description");
+      setAllPatientInfo(updatedAllPatientInfo)
+
+    }
+    else{
+      console.log("No description came back");
     }
   };
 
   const handleDiagnosisChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
-    if (selectedValue === "Other") {
+    if (selectedValue === 'Other') {
       setPatientInfo({
         ...patientInfo,
         Diagnosis: selectedValue,
@@ -37,7 +55,7 @@ const Summary = () => {
       setPatientInfo({
         ...patientInfo,
         Diagnosis: selectedValue,
-        OtherDiagnosis: "", // Reset the OtherDiagnosis value
+        OtherDiagnosis: '', // Reset the OtherDiagnosis value
       });
     }
   };
@@ -47,7 +65,7 @@ const Summary = () => {
       {/* {search} */}
       <div className="flex flex-col w-full gap-2">
         <form
-          className="relative flex flex-col items-center"
+          className=""
           onSubmit={handleSubmit}
         >
           {/* <img
@@ -55,105 +73,54 @@ const Summary = () => {
             alt="link-icon"
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
-          <h3>Patient ID</h3>
-          <input
-            type="ID"
-            placeholder="Patient ID:"
-            value={patientInfo.ID}
-            onChange={(e) =>
-              setPatientInfo({ ...patientInfo, ID: e.target.value })
-            }
-            required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-          />
-          <div>
-            <h3>Diagnosis</h3>
-            <label>
-              <input
-                type="radio"
+          <PatientIDInput patientInfo={patientInfo} setPatientInfo={setPatientInfo}></PatientIDInput>
+          <div className=" mt-5">
+          <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
+          Diagnosis:
+          </label>
+            <select
                 value={patientInfo.Diagnosis}
-                onChange={(e) =>
-                  setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-                }
+                onChange={handleDiagnosisChange}
                 required
-                className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-              />
-              Bipolar I
-            </label>
-            <label>
-              <input
-                type="radio"
-                value={patientInfo.Diagnosis}
-                onChange={(e) =>
-                  setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-                }
-                required
-                className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-              />
-              Bipolar II
-            </label>
-            <label>
-              <input
-                type="radio"
-                value={patientInfo.Diagnosis}
-                onChange={(e) =>
-                  setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-                }
-                required
-                className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-              />
-              Cyclothymic
-            </label>
-            <label>
-              <input
-                type="radio"
-                value={patientInfo.Diagnosis}
-                onChange={(e) =>
-                  setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-                }
-                required
-                className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-              />
-              Other
-            </label>
-            <input
-              type="Text"
-              placeholder=""
-              value={patientInfo.Diagnosis}
-              onChange={(e) =>
-                setPatientInfo({ ...patientInfo, Diagnosis: e.target.value })
-              }
-              required
-              className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
-            />
+                className="url_input peer"
+            >
+              <option value="">Select a diagnosis</option>
+              <option value="Bipolar I">Bipolar I</option>
+              <option value="Bipolar II">Bipolar II</option>
+              <option value="Cyclothymic">Cyclothymic</option>
+              <option value="Other">Other</option>
+            </select>
+            {patientInfo.Diagnosis === 'Other' && (
+                <input
+                    type="text"
+                    placeholder="Please specify"
+                    value={patientInfo.OtherDiagnosis}
+                    onChange={(e) =>
+                        setPatientInfo({ ...patientInfo, OtherDiagnosis: e.target.value })
+                    }
+                    required
+                    className="url_input peer"
+                />
+            )}
           </div>
-          <h3>Symptom Severity</h3>
-          <h3>Treatment Goals</h3>
-          <h3>Age</h3>
+          <div className="items-center mt-5">
+          <label htmlFor="ageInput" className="block font-latoBold text-sm pb-2">
+            Age:
+          </label>
           <input
+            id="ageInput"
             type="number"
-            placeholder="35"
             value={patientInfo.Age}
             onChange={(e) =>
               setPatientInfo({ ...patientInfo, Age: Number(e.target.value) })
             }
             required
-            className="url_input peer" // When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers to style the target element
+            className="url_input peer"
           />
-          <h3>Medical History</h3>
-          <h3>Current Medications</h3>
-          <h3>Allergies</h3>
-          <h3>Additional Considerations</h3>
-
-          {/* Display ID and Description */}
-          {patientInfo.ID && (
-            <div>
-              <p>ID: {patientInfo.ID}</p>
-              <p>Diagnosis: {patientInfo.Diagnosis}</p>
-              <p>Description: {patientInfo.Description}</p>
-            </div>
-          )}
-          <div className="flex justify-center mt-2">
+          </div>
+          
+         
+          <div className="flex justify-center mt-5">
             <button
               type="submit"
               className="black_btn peer-focus:border-gray-700 peer-focus:text-gray-700 "
@@ -162,6 +129,16 @@ const Summary = () => {
             </button>
           </div>
         </form>
+        <br />
+
+         {/* Display ID and Description */}
+         {patientInfo.ID && (
+            <div>
+              <p>ID: {patientInfo.ID}</p>
+              <p>Diagnosis: {patientInfo.Diagnosis}</p>
+              <p>Description: {patientInfo.Description}</p>
+            </div>
+          )}
       </div>
     </section>
   );

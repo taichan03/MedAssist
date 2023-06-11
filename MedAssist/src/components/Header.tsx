@@ -19,7 +19,7 @@ const Header = () => {
         <span className="orange_gradient">Balancer</span>
       </h1>
       <h2 className="desc">
-        MedAssist is an innovative AI-powered web application designed to assist
+        Balancer is an innovative AI-powered web application designed to assist
         psychiatrists in selecting the most appropriate bipolar medication for
         first-time patients. It is open-source and free to use.
       </h2>

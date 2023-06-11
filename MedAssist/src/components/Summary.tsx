@@ -11,6 +11,10 @@ const Summary = () => {
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 4777254 (working on local storage)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
@@ -21,7 +25,12 @@ const Summary = () => {
       setPatientInfo(newDescription);
 
       console.log("newDescription");
+<<<<<<< HEAD
     } else {
+=======
+    }
+    else{
+>>>>>>> parent of 4777254 (working on local storage)
       console.log("noDescription");
     }
   };

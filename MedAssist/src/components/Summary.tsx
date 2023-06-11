@@ -125,6 +125,7 @@ const Summary = () => {
             )
           )}
         </div>
+
         <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
           {allPatientInfo.reverse().map((item, index) => (
             <div
@@ -145,6 +146,14 @@ const Summary = () => {
             </div>
           ))}
         </div>
+        <br />
+        <div>
+          {" "}
+          <h2 className="font-satoshi font-bold text-gray-600 text-xl">
+            Enter New <span className="blue_gradient">Patient</span>
+          </h2>
+        </div>
+
         <form className="" onSubmit={handleSubmit}>
           {/* <img
             src={linkIcon}

@@ -3,24 +3,23 @@ import PatientIDInput from "./PatientID.tsx";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { loader } from "../../assets";
-
+import { v4 as uuidv4 } from "uuid";
 
 interface PatientInfo {
-    ID: string;
-    Diagnosis: string;
-    OtherDiagnosis: string;
-    Description: string;
-    Age: number;
+  ID: string;
+  Diagnosis: string;
+  OtherDiagnosis: string;
+  Description: string;
+  Age: number;
 }
 
 interface NewPatientFormData {
-    patientInfo: PatientInfo;
-    setPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo>>;
-    allPatientInfo: PatientInfo[];
-    setAllPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo[]>>;
-    getMedicationInfo: any
+  patientInfo: PatientInfo;
+  setPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo>>;
+  allPatientInfo: PatientInfo[];
+  setAllPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo[]>>;
+  getMedicationInfo: any;
 }
-
 
 const NewPatientForm = ({
   patientInfo,
@@ -31,8 +30,8 @@ const NewPatientForm = ({
 }: NewPatientFormData) => {
   useEffect(() => {
     const patientInfoFromLocalStorage = JSON.parse(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       localStorage.getItem("patientInfos")
     );
     if (patientInfoFromLocalStorage) {
@@ -43,9 +42,15 @@ const NewPatientForm = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
+    const generatedGuid = uuidv4();
 
+    setPatientInfo({ ...patientInfo, ID: generatedGuid });
     if (data?.description) {
-      const newDescription = { ...patientInfo, Description: data.description };
+      const newDescription = {
+        ...patientInfo,
+        Description: data.description,
+        ID: generatedGuid,
+      };
 
       const updatedAllPatientInfo = [newDescription, ...allPatientInfo];
       setPatientInfo(newDescription);
@@ -96,10 +101,18 @@ const NewPatientForm = ({
             alt="link-icon"
             className="absolute left-0 my-2 ml-3 w-5"
           /> */}
-          <PatientIDInput
-            patientInfo={patientInfo}
-            setPatientInfo={setPatientInfo}
-          />
+          <div className="">
+            <label htmlFor="name" className="block font-latoBold text-sm pb-2">
+              Patient ID:{" "}
+            </label>
+            <input
+              type="text"
+              placeholder="Patient ID will be created on submit"
+              value={patientInfo.ID}
+              readOnly
+              className="url_input peer w-1/2"
+            />
+          </div>
           <div className=" mt-5">
             <label
               htmlFor="ageInput"

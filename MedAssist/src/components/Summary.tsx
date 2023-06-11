@@ -1,5 +1,4 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import { useState, FormEvent, ChangeEvent } from "react";
 import { useLazyGetMedicationInfoQuery } from "../services/medicationsApi";
 
 const Summary = () => {

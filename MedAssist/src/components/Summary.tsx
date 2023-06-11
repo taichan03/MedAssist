@@ -11,6 +11,15 @@ const Summary = () => {
   const [getMedicationInfo, { error, isFetching }] =
     useLazyGetMedicationInfoQuery();
 
+  useEffect(() => {
+    const patienInfoFromLocalStorage = JSON.parse(
+      localStorage.getItem("patientInfo")
+    );
+    if (patienInfoFromLocalStorage) {
+      setAllPatientInfo(patienInfoFromLocalStorage);
+    }
+  }, []);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { data } = await getMedicationInfo("");
@@ -20,9 +29,10 @@ const Summary = () => {
 
       setPatientInfo(newDescription);
 
-      console.log("newDescription");
+      console.log("Logged new description");
+      setAllPatientInfo(updatedAllPatientInfo);
     } else {
-      console.log("noDescription");
+      console.log("No description came back");
     }
   };
 

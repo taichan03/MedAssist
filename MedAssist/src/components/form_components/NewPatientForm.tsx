@@ -1,6 +1,26 @@
-import { FormEvent, ChangeEvent, useEffect } from "react";
+import React, { FormEvent, ChangeEvent, useEffect } from "react";
 import PatientIDInput from "./PatientID.tsx";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { loader } from "../../assets";
+
+
+interface PatientInfo {
+    ID: string;
+    Diagnosis: string;
+    OtherDiagnosis: string;
+    Description: string;
+    Age: number;
+}
+
+interface NewPatientFormData {
+    patientInfo: PatientInfo;
+    setPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo>>;
+    allPatientInfo: PatientInfo[];
+    setAllPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo[]>>;
+    getMedicationInfo: any
+}
+
 
 const NewPatientForm = ({
   patientInfo,
@@ -8,10 +28,10 @@ const NewPatientForm = ({
   allPatientInfo,
   setAllPatientInfo,
   getMedicationInfo,
-}) => {
+}: NewPatientFormData) => {
   useEffect(() => {
     const patientInfoFromLocalStorage = JSON.parse(
-      localStorage.getItem("patientInfos")
+      localStorage.getItem("patientInfos") ?? ""
     );
     if (patientInfoFromLocalStorage) {
       setAllPatientInfo(patientInfoFromLocalStorage);

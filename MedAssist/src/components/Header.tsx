@@ -21,7 +21,7 @@ const Header = () => {
       <h2 className="desc">
         Balancer is an innovative AI-powered web application designed to assist
         psychiatrists in selecting the most appropriate bipolar medication for
-        first-time patients. It is open-source and free to use.
+        first-time patients. It is open-source and free to use
       </h2>
     </header>
   );
